@@ -11,6 +11,3 @@ Some technical problems that may arise when develping this application are recog
 
 Some ethical problems that may arise are finding ways to ensure that the application benefits the community, highlights the communities' voices, and allows everyone's data to be included.  
 
-## Extra Credit:
-
-We looked into the Califrnia Asian Prison Support Committee (https://www.asianprisonersupport.com/) an organization aimed at raising awarenes on the deportations/arrests of AAPI people (specifcially in California). We hope to use some of their data concerning deportation numbers and instances of "wrongfully targeted deportation" in our project
