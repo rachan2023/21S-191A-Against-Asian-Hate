@@ -1,12 +1,12 @@
 const map = L.map('map').setView([34.0709, -118.444], 5);
 
-let CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+let CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 19
 });
 
-CartoDB_Voyager.addTo(map)
+CartoDB_Positron.addTo(map)
 // create a new global scoped variable called 'scroller'
 // you can think of this like the "map" with leaflet (i.e. const map = L.map('map'))
 // let scroller = scrollama();
