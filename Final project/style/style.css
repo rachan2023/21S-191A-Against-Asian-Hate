@@ -3,7 +3,7 @@ body{
     grid-template-columns: 1fr 1fr; 
     /* grid-auto-rows: minmax(5px, auto); */
     grid-template-rows: .2fr .6fr ;
-    grid-template-areas: "mappanel sidebar contentpanel";
+    grid-template-areas: "header header" "mappanel sidebar";
     /* grid-template-areas: ". header header" "contentspanel mappanel sidepane" ; */
     overflow: hidden;    /* hides any overflow so our page doesn't extend beyond the window height*/
     height: 100vh; /* this makes our page cover the whole browser window*/
