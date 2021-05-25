@@ -11,6 +11,13 @@
 
         <!-- Leaflet's JavaScript-->
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <!-- Cluster Marker's CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+        <!-- Cluster Marker's JavaScript -->
+        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+        <!-- After Leaflet script -->
+        <script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script>
+        
     </head>
     
     <body>
@@ -19,6 +26,21 @@
         <!-- this is the iframe for our survey -->
             <iframe width="640px" height= "480px" src= "https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
         </div>
+        <div id = "contents"></div>
         <script src="js/init.js"></script>
+        
+         <!-- Trigger/Open The Modal -->
+        <button id="myBtn">Open Modal</button>
+        <button id= "turnOff59"> <i style="background: green; border-radius: 50%;"></i> Under 59 years oldshdd</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Some text in the Modal..</p>
+        </div>
+
+        </div> 
     </body>
 </html>
