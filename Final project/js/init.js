@@ -5,6 +5,7 @@ let CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles
 	subdomains: 'abcd',
 	maxZoom: 19
 });
+
 CartoDB_Voyager.addTo(map)
 
 //marker cluster group 
@@ -122,10 +123,11 @@ function formatData(theData){
 }
 
 let layers = {
-	'<i style="background: green; border-radius: 50%;"></i> Under 59 years old : ': under59,
-	'<i style="background: blue; border-radius: 50%;"></i> 60-64 years old"': sixtyfour,
-    '<i style="background: red; border-radius: 50%;"></i>65-69 years old"': sixtynine,
-	'<i style="background: purple; border-radius: 50%;"></i>"70 or older yrs old"': overseventy
+
+	'<i style="background: green; border-radius: 50%;"></i> Under 59 yrs old ': under59,
+	'<i style="background: blue; border-radius: 50%;"></i> 60-64 yrs old': sixtyfour,
+    '<i style="background: red; border-radius: 50%;"></i>65-69 yrs old': sixtynine,
+	'<i style="background: purple; border-radius: 50%;"></i> Over 70 yrs old': overseventy
 }
 
 L.control.layers(null,layers,{collapsed: false}).addTo(map)
