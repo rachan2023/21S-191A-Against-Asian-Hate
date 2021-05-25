@@ -35,7 +35,7 @@ fetch(url)
 )
 
 let circleOptions = {
-    radius: 4,
+    radius: 8,
     fillColor: "#ff7800",
     color: "#000",
     weight: 1,
@@ -69,17 +69,17 @@ function addMarker(data){
         console.log(age)
         if (age == "under 59"){         
             
-            under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2> ${city}under 59 yrs old </h2>`))
+            under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2> ${city}</h2>`))
             return data.timestamp
         }
         else if (age == "60-64") {
-            sixtyfour.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}under 59 yrs old</h2> `))
+            sixtyfour.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2> `))
         }
         else if (age == "65-69") {
-            sixtynine.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}under 59 yrs old</h2>`))
+            sixtynine.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2>`))
         }
         else {
-            overseventy.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}under 59 yrs old</h2> `))
+            overseventy.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2> `))
         }
        
         return data   

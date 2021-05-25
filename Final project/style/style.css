@@ -8,6 +8,7 @@ body{
     overflow: hidden;    /* hides any overflow so our page doesn't extend beyond the window height*/
     height: 100vh; /* this makes our page cover the whole browser window*/
     width: 99vw;
+    background-color:burlywood; 
 }
 
 header{
@@ -15,7 +16,8 @@ header{
 }
 
 #map{
-    height:90vh;
+    height:100vh;
+    width: 150vh;
     grid-area: mappanel;
 } 
 
@@ -99,7 +101,7 @@ header{
     width: 12px;
     height: 12px;
     float: right;
-    margin: 5px 8px 0 0;
+    margin: 8px 8px 0 0;
     opacity: 0.7;
   }
   
