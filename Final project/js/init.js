@@ -9,7 +9,7 @@ let CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/
 CartoDB_Positron.addTo(map)
 // create a new global scoped variable called 'scroller'
 // you can think of this like the "map" with leaflet (i.e. const map = L.map('map'))
-// let scroller = scrollama();
+let scroller = scrollama();
 
 //marker cluster group 
 let mcg = L.markerClusterGroup({
@@ -90,8 +90,8 @@ function createButtons(lat,lng,anything){
     const newButton = document.createElement("button"); // adds a new button
     newButton.id = "button"+anything; // gives the button a unique id
     newButton.innerHTML = anything; // gives the button a title
-    // newButton.setAttribute("class","step") // add the class called "step" to the button or div
-    // newButton.setAttribute("data-step",newButton.id) // add a data-step for the button id to know which step we are on
+    newButton.setAttribute("class","step") // add the class called "step" to the button or div
+    newButton.setAttribute("data-step",newButton.id) // add a data-step for the button id to know which step we are on
     newButton.setAttribute("lat",lat); // sets the latitude 
     newButton.setAttribute("lng",lng); // sets the longitude 
     newButton.addEventListener('click', function(){
@@ -128,31 +128,31 @@ function formatData(theData){
         document.getElementById("myBtn").click() // simulate click to start modal
         // setup the instance, pass callback functions
         // use the scrollama scroller variable to set it up
-        // scroller
-        // .setup({
-        //     step: ".step", // this is the name of the class that we are using to step into, it is called "step", not very original
-        // })
-        // // do something when you enter a "step":
-        // .onStepEnter((response) => {
-        //     // you can access these objects: { element, index, direction }
-        //     // use the function to use element attributes of the button 
-        //     // it contains the lat/lng: 
-        //     scrollStepper(response.element.attributes)
-        // })
-        // .onStepExit((response) => {
-        //     // { element, index, direction }
-        //     // left this in case you want something to happen when someone
-        //     // steps out of a div to know what story they are on.
-        // });
+        scroller
+        .setup({
+            step: ".step", // this is the name of the class that we are using to step into, it is called "step", not very original
+        })
+        // do something when you enter a "step":
+        .onStepEnter((response) => {
+            // you can access these objects: { element, index, direction }
+            // use the function to use element attributes of the button 
+            // it contains the lat/lng: 
+            scrollStepper(response.element.attributes)
+        })
+        .onStepExit((response) => {
+            // { element, index, direction }
+            // left this in case you want something to happen when someone
+            // steps out of a div to know what story they are on.
+        });
 }
-// function scrollStepper(thisStep){
-//     // optional: console log the step data attributes:
-//     // console.log("you are in thisStep: "+thisStep)
-//     let thisLat = thisStep.lat.value
-//     let thisLng = thisStep.lng.value
-//     // tell the map to fly to this step's lat/lng pair:
-//     map.flyTo([thisLat,thisLng])
-// }
+function scrollStepper(thisStep){
+    // optional: console log the step data attributes:
+    // console.log("you are in thisStep: "+thisStep)
+    let thisLat = thisStep.lat.value
+    let thisLng = thisStep.lng.value
+    // tell the map to fly to this step's lat/lng pair:
+    map.flyTo([thisLat,thisLng])
+}
 let layers = {
 
 	'<i style="background: green; border-radius: 50%;"></i> Under 59 yrs old ': under59,
@@ -204,4 +204,4 @@ function startModal(){
     }
 }
 // setup resize event for scrollama incase someone wants to resize the page...
-// window.addEventListener("resize", scroller.resize);
+window.addEventListener("resize", scroller.resize);
