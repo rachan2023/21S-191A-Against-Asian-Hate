@@ -60,7 +60,7 @@ function addMarker(data){
         let zip = data.zipcode
         let city = data.whatcitydoyouorthepersonyouarerepresentingcurrentlylivein
         let age = data.howoldareyouorthepersonyouarerepresenting
-        createButtons(data.lat,data.lng,city)
+        createButtons(data.lat,data.lng, city)
         getDistinctValues(age)
         console.log('all the distinct fields')
         console.log(myFieldArray)
@@ -95,7 +95,7 @@ function createButtons(lat,lng,anything){
     newButton.setAttribute("lat",lat); // sets the latitude 
     newButton.setAttribute("lng",lng); // sets the longitude 
     newButton.addEventListener('click', function(){
-        map.flyTo([lat,lng], 15); //this is the flyTo from Leaflet
+        map.flyTo([lat,lng], 10); //this is the flyTo from Leaflet
     })
     const spaceForButtons = document.getElementById('contents')
     spaceForButtons.appendChild(newButton);//this adds the button to our page.
