@@ -95,7 +95,7 @@ function createButtons(lat,lng,anything){
     newButton.setAttribute("lat",lat); // sets the latitude 
     newButton.setAttribute("lng",lng); // sets the longitude 
     newButton.addEventListener('click', function(){
-        map.flyTo([lat,lng], 10); //this is the flyTo from Leaflet
+        map.flyTo([lat,lng], 15); //this is the flyTo from Leaflet
     })
     const spaceForButtons = document.getElementById('contents')
     spaceForButtons.appendChild(newButton);//this adds the button to our page.
@@ -105,7 +105,7 @@ let allLayers;
 let testLayer;
 
 function formatData(theData){
-        const formattedData = [] /* this array will eventually be populated with the contents of the spreadsheet's rows */
+        const formattedData = [] /* this arry will eventually be populated with the contents of the spreadsheet's rows */
         const rows = theData.feed.entry
         for(const row of rows) {
           const formattedRow = {}
@@ -181,15 +181,15 @@ function startModal(){
     document.getElementById("myBtn").onclick = function() {
         modal.style.display = "block";};
     
-    document.getElementById("turnOff59").onclick = function() {
-        if (map.hasLayer(under59)){
-            map.removeLayer(under59)
+    // document.getElementById("turnOff59").onclick = function() {
+    //     if (map.hasLayer(under59)){
+    //         map.removeLayer(under59)
 
-        }
-        else{
-            map.addLayer(under59)
-        }
-    }
+    //     }
+    //     else{
+    //         map.addLayer(under59)
+    //     }
+    // }
     
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
