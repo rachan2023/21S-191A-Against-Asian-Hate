@@ -57,6 +57,7 @@ function getDistinctValues(targetField){
 
 
 function addMarker(data){
+        let zip = data.zipcode
         let city = data.whatcitydoyouorthepersonyouarerepresentingcurrentlylivein
         let age = data.howoldareyouorthepersonyouarerepresenting
         createButtons(data.lat,data.lng,city)
@@ -69,17 +70,17 @@ function addMarker(data){
         console.log(age)
         if (age == "under 59"){         
             
-            under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2> ${city}</h2>`))
+            under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2> ${city }</h2> <h4> ${zip} </h4>`))
             return data.timestamp
         }
         else if (age == "60-64") {
-            sixtyfour.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2> `))
+            sixtyfour.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2><h4> ${zip} </h4> `))
         }
         else if (age == "65-69") {
-            sixtynine.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2>`))
+            sixtynine.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2><h4> ${zip} </h4>`))
         }
         else {
-            overseventy.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2> `))
+            overseventy.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2><h4> ${zip} </h4> `))
         }
        
         return data   
