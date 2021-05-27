@@ -56,6 +56,7 @@ function getDistinctValues(targetField){
 }
 
 
+
 function addMarker(thisData){
         // let story = data.ifpossiblepleaseelaborateaboutwhyyouarefearful.
         // console.log(story)
@@ -91,6 +92,7 @@ function addMarker(thisData){
         console.log(data)
         createButtons(data.lat,data.lng, data)
         getDistinctValues(data.age)
+
         console.log('all the distinct fields')
         console.log(myFieldArray)
         colorArray = ['green','blue','red','purple']
@@ -128,6 +130,7 @@ function createButtons(lat,lng,data){
     newDiv.setAttribute("lng",lng); // sets the longitude 
     newDiv.addEventListener('click', function(){
         map.flyTo([lat,lng], 15); //this is the flyTo from Leaflet
+
     })
     const spaceForButtons = document.getElementById('contents')
     spaceForButtons.appendChild(newDiv);//this adds the button to our page.
