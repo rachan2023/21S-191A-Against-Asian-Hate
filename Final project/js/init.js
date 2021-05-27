@@ -87,7 +87,8 @@ function addMarker(thisData){
             ['story']: theStory,
             ['lat']: thisData.lat,
             ['lng']: thisData.lng,
-            ['fear']: thisData.areyoufearfulofgoingoutsideduetotheriseofasianamericanhatecrimes
+            ['fear']: thisData.areyoufearfulofgoingoutsideduetotheriseofasianamericanhatecrimes,
+            ['iden']: thisData.doyouorthepersonyouarerepresentingidentifyasanasianamericanpacificislander
 
         }
         console.log(data)
@@ -122,7 +123,7 @@ function addMarker(thisData){
 function createButtons(lat,lng,data){
     const newDiv = document.createElement("div"); // adds a new button
     
-    let cardContent =  `<h2>${data.city}</h2> <div class='story'> <p> Age: ${data.age} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
+    let cardContent =  `<h2>${data.city}</h2> <div class='story'> <p> Age: ${data.age} </p> <p> Asian Pacific Island: ${data.iden} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
     newDiv.id = "button"+data.story; // gives the button a unique id
     newDiv.innerHTML = cardContent; // gives it the HTML content
     newDiv.setAttribute("class","card") // add the class called "step" to the button or div
