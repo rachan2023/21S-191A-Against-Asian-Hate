@@ -28,12 +28,15 @@ header{
     grid-area: sidebar;
     display:grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: 500px;
-    overflow-y:scroll; /* adds a vertical scroll-bar to this div */
+    /* grid-auto-rows: 100px; */
+    /* overflow-y:scroll; adds a vertical scroll-bar to this div */
+    grid-auto-rows: minmax(min-content,max-content);    
+    overflow-y: scroll;
 }
 
 .card{
   padding:10px;
+
 }
 
 /* fix for survey to fit in the iframe */
