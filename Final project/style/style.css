@@ -14,10 +14,15 @@ body{
 header{
   grid-area: header;
 }
-
+#theHeader{
+  grid-area: header;
+  display: grid;
+  grid-template-columns: .8fr .1fr .1fr;
+  padding:10px;
+}
 #map{
   height:100vh;
-  width: 150vh;
+  /* width: 150vh; */
   grid-area: mappanel;
 } 
 
