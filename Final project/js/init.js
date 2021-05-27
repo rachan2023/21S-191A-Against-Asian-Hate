@@ -56,49 +56,84 @@ function getDistinctValues(targetField){
 }
 
 
-function addMarker(data){
-        let zip = data.zipcode
-        let city = data.whatcitydoyouorthepersonyouarerepresentingcurrentlylivein
-        let age = data.howoldareyouorthepersonyouarerepresenting
-        createButtons(data.lat,data.lng, city)
-        getDistinctValues(age)
+
+function addMarker(thisData){
+        // let story = data.ifpossiblepleaseelaborateaboutwhyyouarefearful.
+        // console.log(story)
+        let theStory;
+        // console.log('thisData.fearful')
+        // console.log(thisData.fearful.length)
+        // console.log('thisData.notfearful')
+        // console.log(thisData.notfearful.length)
+        if (thisData.fearful.length > 0){
+            theStory = thisData.fearful
+            console.log('fearful greater than 0 ')
+            console.log(thisData.fearful)
+        }
+        else if (thisData.notfearful.length > 0 ){
+            theStory = thisData.notfearful
+            console.log('not fearful greater than 0')
+            console.log(thisData.notfearful)
+        }
+        else if (thisData.notfearful.length > 0 && thisData.fearful.length > 0){
+            theStory = "Story not provided."
+        }
+        console.log(theStory)
+        let data = {
+            ['zip']: thisData.zipcode,
+            ['city']: thisData.whatcitydoyouorthepersonyouarerepresentingcurrentlylivein,
+            ['age']: thisData.howoldareyouorthepersonyouarerepresenting,
+            ['relationship']: thisData.whatisyourrelationshipwiththepersonthatyouarefillingoutthissurveyfor,
+            ['story']: theStory,
+            ['lat']: thisData.lat,
+            ['lng']: thisData.lng
+
+        }
+        console.log(data)
+        createButtons(data.lat,data.lng, data)
+        getDistinctValues(data.age)
+
         console.log('all the distinct fields')
         console.log(myFieldArray)
         colorArray = ['green','blue','red','purple']
-        circleOptions.fillColor = colorArray[myFieldArray.indexOf(age)]
+        circleOptions.fillColor = colorArray[myFieldArray.indexOf(data.age)]
         console.log("age")
-        console.log(age)
-        if (age == "under 59"){         
+        console.log(data.age)
+        let popUp = `<h2>${data.city}</h2><h4> ${data.zip} </h4> `
+        if (data.age == "under 59"){         
             
-            under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2> ${city }</h2> <h4> ${zip} </h4>`))
+            under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
             return data.timestamp
         }
-        else if (age == "60-64") {
-            sixtyfour.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2><h4> ${zip} </h4> `))
+        else if (data.age == "60-64") {
+            sixtyfour.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
         }
-        else if (age == "65-69") {
-            sixtynine.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2><h4> ${zip} </h4>`))
+        else if (data.age == "65-69") {
+            sixtynine.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
         }
         else {
-            overseventy.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(`<h2>${city}</h2><h4> ${zip} </h4> `))
+            overseventy.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
         }
        
         return data   
 }
 
-function createButtons(lat,lng,anything){
-    const newButton = document.createElement("button"); // adds a new button
-    newButton.id = "button"+anything; // gives the button a unique id
-    newButton.innerHTML = anything; // gives the button a title
-    newButton.setAttribute("class","step") // add the class called "step" to the button or div
-    newButton.setAttribute("data-step",newButton.id) // add a data-step for the button id to know which step we are on
-    newButton.setAttribute("lat",lat); // sets the latitude 
-    newButton.setAttribute("lng",lng); // sets the longitude 
-    newButton.addEventListener('click', function(){
-        map.flyTo([lat,lng], 10); //this is the flyTo from Leaflet
+function createButtons(lat,lng,data){
+    const newDiv = document.createElement("div"); // adds a new button
+    
+    let cardContent =  `<h3>${data.city}</h3> <div class='story'>${data.story}</div>`
+    newDiv.id = "button"+data.story; // gives the button a unique id
+    newDiv.innerHTML = cardContent; // gives it the HTML content
+    newDiv.setAttribute("class","card") // add the class called "step" to the button or div
+    newDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
+    newDiv.setAttribute("lat",lat); // sets the latitude 
+    newDiv.setAttribute("lng",lng); // sets the longitude 
+    newDiv.addEventListener('click', function(){
+        map.flyTo([lat,lng], 15); //this is the flyTo from Leaflet
+
     })
     const spaceForButtons = document.getElementById('contents')
-    spaceForButtons.appendChild(newButton);//this adds the button to our page.
+    spaceForButtons.appendChild(newDiv);//this adds the button to our page.
 }
 
 let allLayers;
@@ -130,7 +165,7 @@ function formatData(theData){
         // use the scrollama scroller variable to set it up
         scroller
         .setup({
-            step: ".step", // this is the name of the class that we are using to step into, it is called "step", not very original
+            step: ".card", // this is the name of the class that we are using to.card into, it is called "step", not very original
         })
         // do something when you enter a "step":
         .onStepEnter((response) => {
