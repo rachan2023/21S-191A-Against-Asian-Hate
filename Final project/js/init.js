@@ -247,15 +247,7 @@ function startModal(){
     document.getElementById("myBtn").onclick = function() {
         modal.style.display = "block";};
     
-    // document.getElementById("turnOff59").onclick = function() {
-    //     if (map.hasLayer(under59)){
-    //         map.removeLayer(under59)
 
-    //     }
-    //     else{
-    //         map.addLayer(under59)
-    //     }
-    // }
     
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
