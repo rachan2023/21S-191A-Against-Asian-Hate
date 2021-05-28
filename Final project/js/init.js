@@ -55,11 +55,13 @@ function getDistinctValues(targetField){
       // append values to array 
 }
 
-//visited before website?
-var lastVisited = window.localStorage.getItem('last visited');
-
 function recenter() {
-    map.flyTo([34.0709, -118.444], 5);
+    map.flyTo([34.0709, -118.444], 5 ,{
+        pan: {
+            animate: false,
+            duration: 0.1
+        }
+    });
 }
 
 function addMarker(thisData){
@@ -72,18 +74,18 @@ function addMarker(thisData){
         // console.log(thisData.notfearful.length)
         if (thisData.fearful.length > 0){
             theStory = thisData.fearful
-            console.log('fearful greater than 0 ')
-            console.log(thisData.fearful)
+            // console.log('fearful greater than 0 ')
+            // console.log(thisData.fearful)
         }
         else if (thisData.notfearful.length > 0 ){
             theStory = thisData.notfearful
-            console.log('not fearful greater than 0')
-            console.log(thisData.notfearful)
+            // console.log('not fearful greater than 0')
+            // console.log(thisData.notfearful)
         }
         else if (thisData.notfearful.length > 0 && thisData.fearful.length > 0){
             theStory = "Story not provided."
         }
-        console.log(theStory)
+        // console.log(theStory)
         let data = {
             ['zip']: thisData.zipcode,
             ['city']: thisData.whatcitydoyouorthepersonyouarerepresentingcurrentlylivein,
@@ -97,19 +99,18 @@ function addMarker(thisData){
             ['gender']: thisData.whatgenderdoyouorthepersonyouarerepresentingidentifyas
 
         }
-        console.log(data)
+        // console.log(data)
         createButtons(data.lat,data.lng, data)
         getDistinctValues(data.age)
 
-        console.log('all the distinct fields')
-        console.log(myFieldArray)
+        // console.log('all the distinct fields')
+        // console.log(myFieldArray)
         colorArray = ['green','blue','red','purple']
         circleOptions.fillColor = colorArray[myFieldArray.indexOf(data.age)]
-        console.log("age")
-        console.log(data.age)
+        // console.log("age")
+        // console.log(data.age)
         let popUp = `<h2>${data.city}</h2><h4> ${data.zip} </h4> `
         if (data.age == "under 59"){         
-            
             under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
             return data.timestamp
         }
@@ -137,7 +138,13 @@ function createButtons(lat,lng,data){
     newDiv.setAttribute("lat",lat); // sets the latitude 
     newDiv.setAttribute("lng",lng); // sets the longitude 
     newDiv.addEventListener('click', function(){
-        map.flyTo([lat,lng], 15); //this is the flyTo from Leaflet
+        map.flyTo([lat,lng], 15, 
+            { pan: {
+                animate: false,
+                duration: 0.1
+            }
+            }
+            ); //this is the flyTo from Leaflet
 
     })
     const spaceForButtons = document.getElementById('contents')
@@ -146,6 +153,9 @@ function createButtons(lat,lng,data){
 
 let allLayers;
 let testLayer;
+
+//if i change from local to session storage, the popup will come up every time ?
+let lastVisited = window.localStorage.getItem('last visited');
 
 function formatData(theData){
         const formattedData = [] /* this arry will eventually be populated with the contents of the spreadsheet's rows */
@@ -159,7 +169,7 @@ function formatData(theData){
           }
           formattedData.push(formattedRow)
         }
-        console.log(formattedData)
+        // console.log(formattedData)
         formattedData.forEach(addMarker)    
         testLayer = overseventy;
         allLayers = L.featureGroup([under59, sixtyfour, sixtynine, overseventy]);
@@ -167,7 +177,13 @@ function formatData(theData){
         // console.log(allLayers)
         allLayers.addTo(map)
         map.fitBounds(allLayers.getBounds()); 
-        startModal()
+       
+        //popup?
+        if (lastVisited == null || lastVisited == 'false') {
+            startModal();
+            localStorage.setItem('last visited', 'true');
+            console.log('started');
+        }
         document.getElementById("myBtn").click() // simulate click to start modal
         // setup the instance, pass callback functions
         // use the scrollama scroller variable to set it up
@@ -194,7 +210,13 @@ function scrollStepper(thisStep){
     let thisLat = thisStep.lat.value
     let thisLng = thisStep.lng.value
     // tell the map to fly to this step's lat/lng pair:
-    map.flyTo([thisLat,thisLng])
+    map.flyTo([thisLat,thisLng] ,{ 
+        pan: {
+        animate: false,
+        duration: 0.1
+        }
+    }
+        );
 }
 let layers = {
 
