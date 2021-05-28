@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Against Asian Hate (AAH) </title>
+        <title> 反抗仇恨亚太裔  </title>
         <meta charset="utf-8" />
         <link rel="shortcut icon" href="#">
         <link rel="stylesheet" href="style/style.css">
@@ -31,24 +31,41 @@
         
     </head>
     <body>
+        
         <div id="map"></div>
-        <!-- <div id="survey"> -->
-        <!-- this is the iframe for our survey -->
-            <!-- <iframe width="640px" height= "480px" src= "https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
-        </div> -->
+        
         <div id = "contents"></div>
         <script src="js/init.js"></script>
         
          <!-- Trigger/Open The Modal -->
-         <div id="theHeader"><h2>Against Asian Hate</h2> <div>
-            <button id="myBtn"> Click Here to Share Your Story! </button> 
-        </div>   
-        <div>
-            <a href="https://github.com/rachan2023/21S-191A-Against-Asian-Hate/blob/main/README.md"><button>About the Against Asian Hate Project</button></a>
-        </div>   
+         <div id="theHeader"><h2>反抗仇恨亚太裔 </h2> 
+            <div>
+            <button id="myBtn"> 仇恨问卷网址 </button> 
+            </div>  
+
+            <div>
+            <a href="https://github.com/rachan2023/21S-191A-Against-Asian-Hate/blob/main/README.md"><button>关于我们的网站</button></a>
+            </div>   
+        
+            <div id="google_translate_element"></div>
+                <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement(
+                    {pageLanguage: 'en'},
+                     'google_translate_element');
+            }
+            </script>
+
+            <div id="recenter">
+                <button id='recenter_btn' onclick="recenter()"> Recenter </button>
+            </div>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"> </script>
         </div>  
-        <!-- <button id="myBtn"> Click Here to Share Your Story! </button> -->
-        <!-- <button id="myBtn"> About </button> -->
+
+
+        <!-- <button id="myBtn"> 仇恨问卷 </button> -->
+        
+        <!-- <button id="myBtn"> 关于我们的网站 </button> -->
         <!-- <button id="myBtn" onclick="document.location='https://github.com/rachan2023/21S-191A-Against-Asian-Hate/blob/main/README.md'"> About </button> -->
         <!-- <button id= "turnOff59"> <i style="background: green; border-radius: 50%;"></i> Under 59 years old </button> -->
         <!-- <button id= "turnOff59"> <i style="background: red; border-radius: 50%;"></i> 60-64 years old</button>
@@ -59,11 +76,12 @@
 
             <!-- Modal content -->
             <div class="modal-content">
+                
                 <span class="close">&times;</span>
-                <div class="modal-header">
+                <div class="modal-header" id="header">
                     <h2 class="modal-title"> 
-                        参加本调查以分享您的故事！ </h2> 
-                    <p>T这项调查是针对居住在加利福尼亚州的亚裔美国人和妇女，分享他们的情绪，特别是由于COVID-19大流行期间亚裔美国人仇恨犯罪的增加而产生的恐惧感。这项调查大约需要3-5分钟才能完成。所有回复均为匿名且机密。 </p> 
+                        分享您的故事！ </h2> 
+                    <p>这项调查是针对居住在加利福尼亚州的亚裔美国人和妇女，分享他/她们的情绪，特别是由于COVID-19大流行期间亚裔美国人仇恨犯罪的增加而产生的恐惧感。这项调查大约需要3-5分钟才能完成。所有问卷回复均为匿名且机密。 </p> 
                    
                 </div>
                 
@@ -74,14 +92,22 @@
                     
                 <!-- </div> -->
                 <!-- Button doesn't work :( -->
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal"> Proceed to English</button> -->
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal" onclick="document.location='https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u'"> English </button> -->
-                    <!-- <button onclick="document.location='https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u'">HTML Tutorial</button> -->
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="document.location='https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u&lang=zh-cn'"> 中文 </button> 
-
+                <div class="modal-footer" id="footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="document.location='https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u&lang=zh-cn'"> 去访问卷网站 </button> 
+                    <button type="button" class="btn btn-default" onclick="document.getElementById('myModal').style.display='none'" >关闭</button>
                 </div>
             </div>
+            <!-- <script>
+                var lastVisited = window.sessionStorage.getItem('last visited');
+                    if(lastVisited == null || lastVisited == "false") {
+                        sessionStorage.setItem('last visited', "true")
+                    } 
+                    else if(lastVisited == "true") {
+                        document.getElementById("header").style.style = "none";
+                        document.getElementById("footer").style.style = "none";
+                    }
+                console.log("visited? "+ lastVisited);
+            </script> -->
         </div> 
     </body>
 </html>

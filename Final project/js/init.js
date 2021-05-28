@@ -55,7 +55,12 @@ function getDistinctValues(targetField){
       // append values to array 
 }
 
+//visited before website?
+var lastVisited = window.localStorage.getItem('last visited');
 
+function recenter() {
+    map.flyTo([34.0709, -118.444], 5);
+}
 
 function addMarker(thisData){
         // let story = data.ifpossiblepleaseelaborateaboutwhyyouarefearful.
@@ -200,6 +205,7 @@ let layers = {
 }
 
 L.control.layers(null,layers,{collapsed: false}).addTo(map)
+
 
 
 function startModal(){
