@@ -130,10 +130,10 @@ function addMarker(thisData){
 function createButtons(lat,lng,data){
     const newDiv = document.createElement("div"); // adds a new button
     
+    let cleanage = data.age.replace(' ', '');
     let cardContent =  `<h2>${data.city}</h2> <div class='story'> <p> Age: ${data.age} </p> <p> Asian Pacific Island: ${data.iden} </p> <p> Gender identity: ${data.gender} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
-    newDiv.id = "button"+data.story; // gives the button a unique id
     newDiv.innerHTML = cardContent; // gives it the HTML content
-    newDiv.setAttribute("class","card") // add the class called "step" to the button or div
+    newDiv.setAttribute("class","card_" + cleanage); // add the class called "step" to the button or div
     newDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
     newDiv.setAttribute("lat",lat); // sets the latitude 
     newDiv.setAttribute("lng",lng); // sets the longitude 
@@ -210,12 +210,7 @@ function scrollStepper(thisStep){
     let thisLat = thisStep.lat.value
     let thisLng = thisStep.lng.value
     // tell the map to fly to this step's lat/lng pair:
-    map.flyTo([thisLat,thisLng] ,{ 
-        pan: {
-        animate: false,
-        duration: 0.1
-        }
-    }
+    map.flyTo([thisLat,thisLng]
         );
 }
 let layers = {

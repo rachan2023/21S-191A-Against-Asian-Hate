@@ -53,6 +53,11 @@ header{
   position: relative;
 }
 
+.card_under59 {
+  background-color: orange;
+  padding: 20px;
+}
+
 #go_back {
   position: absolute;
   top: 10px;
