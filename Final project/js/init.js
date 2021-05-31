@@ -130,23 +130,83 @@ function addMarker(thisData){
 function createButtons(lat,lng,data){
     const newDiv = document.createElement("div"); // adds a new button
     
-    let cardContent =  `<h2>${data.city}</h2> <div class='story'> <p> Age: ${data.age} </p> <p> Asian American/Pacific Islander: ${data.iden} </p> <p> Gender identity: ${data.gender} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
-    newDiv.id = "button"+data.story; // gives the button a unique id
-    newDiv.innerHTML = cardContent; // gives it the HTML content
-    newDiv.setAttribute("class","card") // add the class called "step" to the button or div
-    newDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
-    newDiv.setAttribute("lat",lat); // sets the latitude 
-    newDiv.setAttribute("lng",lng); // sets the longitude 
-    newDiv.addEventListener('click', function(){
-        map.flyTo([lat,lng], 15, 
-            { pan: {
-                animate: false,
-                duration: 0.1
-            }
-            }
-            ); //this is the flyTo from Leaflet
+    if (data.age != "under 59" && data.gender == "Woman") {
+        let cardContent =  `<h2> Elderly Woman </h2> <div class='story'> <p> Age: ${data.age} </p> <p> Location: ${data.city} </p> <p> Asian American/Pacific Islander: ${data.iden} </p> <p> Gender identity: ${data.gender} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
+        newDiv.id = "button"+data.story; // gives the button a unique id
+        newDiv.innerHTML = cardContent; // gives it the HTML content
+        newDiv.setAttribute("class","card") // add the class called "step" to the button or div
+        newDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
+        newDiv.setAttribute("lat",lat); // sets the latitude 
+        newDiv.setAttribute("lng",lng); // sets the longitude 
+        newDiv.addEventListener('click', function(){
+            map.flyTo([lat,lng], 15, 
+                { pan: {
+                    animate: false,
+                    duration: 0.1
+                }
+                }
+                ); //this is the flyTo from Leaflet
 
-    })
+        })
+    }
+    else if (data.age == "under 59" && data.gender == "Woman") {
+        let cardContent =  `<h2> Woman </h2> <div class='story'> <p> Age: ${data.age} </p><p> Location: ${data.city} </p> <p> Asian American/Pacific Islander: ${data.iden} </p> <p> Gender identity: ${data.gender} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
+        newDiv.id = "button"+data.story; // gives the button a unique id
+        newDiv.innerHTML = cardContent; // gives it the HTML content
+        newDiv.setAttribute("class","card") // add the class called "step" to the button or div
+        newDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
+        newDiv.setAttribute("lat",lat); // sets the latitude 
+        newDiv.setAttribute("lng",lng); // sets the longitude 
+        newDiv.addEventListener('click', function(){
+            map.flyTo([lat,lng], 15, 
+                { pan: {
+                    animate: false,
+                    duration: 0.1
+                }
+                }
+                ); //this is the flyTo from Leaflet
+
+        })
+    }
+    else if (data.gender != "Woman" && data.age == "under 59"){
+        let cardContent = `<h2> Asian American Pacific Islander </h2> <div class='story'> <p> Age: ${data.age} </p> <p> Location: ${data.city} </p> <p> Asian American/Pacific Islander: ${data.iden} </p> <p> Gender identity: ${data.gender} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
+        newDiv.id = "button"+data.story; // gives the button a unique id
+        newDiv.innerHTML = cardContent; // gives it the HTML content
+        newDiv.setAttribute("class","card") // add the class called "step" to the button or div
+        newDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
+        newDiv.setAttribute("lat",lat); // sets the latitude 
+        newDiv.setAttribute("lng",lng); // sets the longitude 
+        newDiv.addEventListener('click', function(){
+            map.flyTo([lat,lng], 15, 
+                { pan: {
+                    animate: false,
+                    duration: 0.1
+                }
+                }
+                ); //this is the flyTo from Leaflet
+
+        })
+    }
+    else {
+        let cardContent = `<h2>${data.city}</h2> <div class='story'> <p> Age: ${data.age} </p> <p> Location: ${data.city} </p> <p> Asian American/Pacific Islander: ${data.iden} </p> <p> Gender identity: ${data.gender} </p> <p>Fearful of going outside: ${data.fear} </p>  Story: ${data.story}</div>`
+        newDiv.id = "button"+data.story; // gives the button a unique id
+        newDiv.innerHTML = cardContent; // gives it the HTML content
+        newDiv.setAttribute("class","card") // add the class called "step" to the button or div
+        newDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
+        newDiv.setAttribute("lat",lat); // sets the latitude 
+        newDiv.setAttribute("lng",lng); // sets the longitude 
+        newDiv.addEventListener('click', function(){
+            map.flyTo([lat,lng], 15, 
+                { pan: {
+                    animate: false,
+                    duration: 0.1
+                }
+                }
+                ); //this is the flyTo from Leaflet
+
+        })
+
+    }
     const spaceForButtons = document.getElementById('contents')
     spaceForButtons.appendChild(newDiv);//this adds the button to our page.
 }

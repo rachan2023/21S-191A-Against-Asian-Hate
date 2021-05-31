@@ -111,6 +111,9 @@ header{
 .about_content {
   position: fixed;
   top: 60px;
+  /* text-align: center; */
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 /* The Close Button */
