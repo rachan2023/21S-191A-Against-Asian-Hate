@@ -43,6 +43,73 @@ let circleOptions = {
     fillOpacity: 0.8
 }
 
+const boundaryLayer = "../data/ca_counties.geojson"
+let boundary;
+let ptsWithin;
+let collected;
+let allPoints = [];
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    console.log(feature.properties)
+    if (feature.properties.values) {
+        let count = feature.properties.values.length
+        console.log(count)
+        let text = count.toString()
+        layer.bindPopup(text);
+    }
+}
+function getStyles(data){
+    console.log(data)
+    let myStyle = {
+        "color": "#ff7800",
+        "weight": 1,
+        "opacity": .0,
+        "stroke": .5
+    };
+    if (data.properties.values.length > 0){
+        myStyle.opacity = 0
+    }
+    return myStyle
+}
+function getBoundary(layer){
+    fetch(layer)
+    .then(response => {
+        return response.json();
+        })
+    .then(data =>{
+                boundary = data
+                collected = turf.collect(boundary, thePoints, 'speakEnglish', 'values');
+                // collected = turf.buffer(thePoints, 50,{units:'miles'});
+                // console.log(collected.features)
+                L.geoJson(collected,{onEachFeature: onEachFeature,style:function(feature)
+                {
+                    // console.log(feature)
+                    if (feature.properties.values.length > 0) {
+                        return {color: "#ff0000",stroke: false};
+                    }
+                    else{
+                        return{opacity:0}
+                    }
+                }
+                    }).addTo(map)
+        }
+    )   
+}
+
+function getStyles(data){
+    console.log(data)
+    let myStyle = {
+        "color": "#ff7800",
+        "weight": 1,
+        "opacity": .0,
+        "stroke": .5
+    };
+    if (data.properties.values.length > 0){
+        myStyle.opacity = 0
+    }
+    return myStyle
+}
+
 let myFieldArray = []
 
 function getDistinctValues(targetField){
