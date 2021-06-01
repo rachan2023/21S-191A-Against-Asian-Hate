@@ -78,7 +78,7 @@ function getBoundary(layer){
         })
     .then(data =>{
                 boundary = data
-                collected = turf.collect(boundary, thePoints, 'speakEnglish', 'values');
+                collected = turf.collect(boundary, thePoints, 'fear', 'values');
                 // collected = turf.buffer(thePoints, 50,{units:'miles'});
                 // console.log(collected.features)
                 L.geoJson(collected,{onEachFeature: onEachFeature,style:function(feature)
@@ -96,19 +96,6 @@ function getBoundary(layer){
     )   
 }
 
-function getStyles(data){
-    console.log(data)
-    let myStyle = {
-        "color": "#ff7800",
-        "weight": 1,
-        "opacity": .0,
-        "stroke": .5
-    };
-    if (data.properties.values.length > 0){
-        myStyle.opacity = 0
-    }
-    return myStyle
-}
 
 let myFieldArray = []
 
@@ -169,6 +156,9 @@ function addMarker(thisData){
         // console.log(data)
         createButtons(data.lat,data.lng, data)
         getDistinctValues(data.age)
+        let fear = thisData.areyoufearfulofgoingoutsideduetotheriseofasianamericanhatecrimes
+        let thisPoint = turf.point([Number(data.lng),Number(data.lat)],{fear})
+        allPoints.push(thisPoint)
 
         // console.log('all the distinct fields')
         // console.log(myFieldArray)
@@ -300,6 +290,7 @@ function formatData(theData){
         formattedData.forEach(addMarker)    
         testLayer = overseventy;
         allLayers = L.featureGroup([under59, sixtyfour, sixtynine, overseventy]);
+        thePoints = turf.featureCollection(allPoints)
         mcg.addTo(map)
         // console.log(allLayers)
         allLayers.addTo(map)
@@ -354,7 +345,7 @@ let layers = {
 }
 
 L.control.layers(null,layers,{collapsed: false}).addTo(map)
-
+collected.features.properties.values
 
 
 function startModal(){
