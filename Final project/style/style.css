@@ -101,6 +101,12 @@ header{
   top: 7px;
 
 }
+#countiesF {
+    grid-column: 2;
+    grid-row: 3;
+    z-index: 999;
+
+}
 
 #recenter {
   position: absolute;

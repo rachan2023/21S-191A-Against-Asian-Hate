@@ -45,7 +45,9 @@ let circleOptions = {
 
 let boundaryLayer = "./data/counties.geojson"
 let flag;
-
+function countiesF() {
+    // have the map show counties that are fearful
+}
 
 // function toggleBoundaries(flag){
 //     if (flag == "zip"){
