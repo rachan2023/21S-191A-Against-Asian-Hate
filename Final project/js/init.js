@@ -73,6 +73,7 @@ function onEachFeature(feature, layer) {
         console.log(count)
         let text = count.toString()
         layer.bindPopup(text);
+
     }
 }
 function getStyles(data){
@@ -310,7 +311,7 @@ function formatData(theData){
         allLayers = L.featureGroup([under59, sixtyfour, sixtynine, overseventy]);
         thePoints = turf.featureCollection(allPoints)
         getBoundary(boundaryLayer)
-        mcg.addTo(map)
+        //mcg.addTo(map)
         // console.log(allLayers)
         allLayers.addTo(map)
         map.fitBounds(allLayers.getBounds()); 
