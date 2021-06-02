@@ -43,7 +43,7 @@ let circleOptions = {
     fillOpacity: 0.8
 }
 
-let boundaryLayer = "./data/zipcodes.geojson"
+let boundaryLayer = "./data/la_county_zipcodes.geojson"
 let flag;
 
 
