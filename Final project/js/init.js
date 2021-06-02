@@ -400,4 +400,5 @@ function startModal(){
     }
 }
 // setup resize event for scrollama incase someone wants to resize the page...
+
 window.addEventListener("resize", scroller.resize);
