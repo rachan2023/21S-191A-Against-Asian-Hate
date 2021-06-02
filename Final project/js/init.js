@@ -43,7 +43,24 @@ let circleOptions = {
     fillOpacity: 0.8
 }
 
-const boundaryLayer = "../data/ca_counties.geojson"
+let boundaryLayer = "./data/counties.geojson"
+let flag;
+
+
+// function toggleBoundaries(flag){
+//     if (flag == "zip"){
+//     boundaryLayer = "./data/counties.geojson"
+//     getBoundary(boundaryLayer)
+//     }
+//     if (flag == "counties"){
+//         boundaryLayer = "./data/zipcode.geojson"
+//         getBoundary(boundaryLayer)
+//     }
+//     else{
+
+//     }
+// }
+
 let boundary;
 let ptsWithin;
 let collected;
@@ -79,8 +96,9 @@ function getBoundary(layer){
     .then(data =>{
                 boundary = data
                 collected = turf.collect(boundary, thePoints, 'fear', 'values');
+                
                 // collected = turf.buffer(thePoints, 50,{units:'miles'});
-                // console.log(collected.features)
+                console.log(collected.features)
                 L.geoJson(collected,{onEachFeature: onEachFeature,style:function(feature)
                 {
                     // console.log(feature)
@@ -291,6 +309,7 @@ function formatData(theData){
         testLayer = overseventy;
         allLayers = L.featureGroup([under59, sixtyfour, sixtynine, overseventy]);
         thePoints = turf.featureCollection(allPoints)
+        getBoundary(boundaryLayer)
         mcg.addTo(map)
         // console.log(allLayers)
         allLayers.addTo(map)
@@ -328,13 +347,14 @@ function scrollStepper(thisStep){
     let thisLat = thisStep.lat.value
     let thisLng = thisStep.lng.value
     // tell the map to fly to this step's lat/lng pair:
-    map.flyTo([thisLat,thisLng] ,{ 
-        pan: {
-        animate: false,
-        duration: 0.1
-        }
-    }
-        );
+    // fix this later:
+    // map.flyTo([thisLat,thisLng] ,{ 
+    //     pan: {
+    //     animate: false,
+    //     duration: 0.1
+    //     }
+    // }
+    //     );
 }
 let layers = {
 
@@ -345,7 +365,7 @@ let layers = {
 }
 
 L.control.layers(null,layers,{collapsed: false}).addTo(map)
-collected.features.properties.values
+
 
 
 function startModal(){
