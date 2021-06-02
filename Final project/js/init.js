@@ -43,6 +43,78 @@ let circleOptions = {
     fillOpacity: 0.8
 }
 
+let boundaryLayer = "./data/la_county_zipcodes.geojson"
+let flag;
+
+
+// function toggleBoundaries(flag){
+//     if (flag == "zip"){
+//     boundaryLayer = "./data/counties.geojson"
+//     getBoundary(boundaryLayer)
+//     }
+//     if (flag == "counties"){
+//         boundaryLayer = "./data/zipcode.geojson"
+//         getBoundary(boundaryLayer)
+//     }
+//     else{
+
+//     }
+// }
+
+let boundary;
+let ptsWithin;
+let collected;
+let allPoints = [];
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    console.log(feature.properties)
+    if (feature.properties.values) {
+        let count = feature.properties.values.length
+        console.log(count)
+        let text = count.toString()
+        layer.bindPopup(text);
+    }
+}
+function getStyles(data){
+    console.log(data)
+    let myStyle = {
+        "color": "#ff7800",
+        "weight": 1,
+        "opacity": .0,
+        "stroke": .5
+    };
+    if (data.properties.values.length > 0){
+        myStyle.opacity = 0
+    }
+    return myStyle
+}
+function getBoundary(layer){
+    fetch(layer)
+    .then(response => {
+        return response.json();
+        })
+    .then(data =>{
+                boundary = data
+                collected = turf.collect(boundary, thePoints, 'fear', 'values');
+                
+                // collected = turf.buffer(thePoints, 50,{units:'miles'});
+                console.log(collected.features)
+                L.geoJson(collected,{onEachFeature: onEachFeature,style:function(feature)
+                {
+                    // console.log(feature)
+                    if (feature.properties.values.length > 0) {
+                        return {color: "#ff0000",stroke: false};
+                    }
+                    else{
+                        return{opacity:0}
+                    }
+                }
+                    }).addTo(map)
+        }
+    )   
+}
+
+
 let myFieldArray = []
 
 function getDistinctValues(targetField){
@@ -102,6 +174,9 @@ function addMarker(thisData){
         // console.log(data)
         createButtons(data.lat,data.lng, data)
         getDistinctValues(data.age)
+        let fear = thisData.areyoufearfulofgoingoutsideduetotheriseofasianamericanhatecrimes
+        let thisPoint = turf.point([Number(data.lng),Number(data.lat)],{fear})
+        allPoints.push(thisPoint)
 
         // console.log('all the distinct fields')
         // console.log(myFieldArray)
@@ -233,6 +308,8 @@ function formatData(theData){
         formattedData.forEach(addMarker)    
         testLayer = overseventy;
         allLayers = L.featureGroup([under59, sixtyfour, sixtynine, overseventy]);
+        thePoints = turf.featureCollection(allPoints)
+        getBoundary(boundaryLayer)
         mcg.addTo(map)
         // console.log(allLayers)
         allLayers.addTo(map)
@@ -270,13 +347,14 @@ function scrollStepper(thisStep){
     let thisLat = thisStep.lat.value
     let thisLng = thisStep.lng.value
     // tell the map to fly to this step's lat/lng pair:
-    map.flyTo([thisLat,thisLng] ,{ 
-        pan: {
-        animate: false,
-        duration: 0.1
-        }
-    }
-        );
+    // fix this later:
+    // map.flyTo([thisLat,thisLng] ,{ 
+    //     pan: {
+    //     animate: false,
+    //     duration: 0.1
+    //     }
+    // }
+    //     );
 }
 let layers = {
 
