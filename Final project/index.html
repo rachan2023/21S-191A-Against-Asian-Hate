@@ -30,7 +30,9 @@
         <script src='./js/scrollama.js'></script>
         <!-- Adding the TurfJs library  -->
         <script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
-        
+
+        <!-- bring in tagcloud -->
+        <script type="text/javascript" src="js/TagCloud.min.js"></script> 
     </head>
     <body>
         <!-- <header> <h2> Against Asian American Hate  </h2></header> -->
@@ -52,7 +54,11 @@
         <!-- this is the iframe for our survey -->
             <!-- <iframe width="640px" height= "480px" src= "https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
         </div> -->
-        <div id = "contents"></div>
+        <div id = "contents">
+            <div class="tagcloud">
+            </div>
+        </div>
+        <script src="js/stopwords.js"></script>
         <script src="js/init.js"></script>
         
          <!-- Trigger/Open The Modal -->
