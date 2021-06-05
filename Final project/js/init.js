@@ -179,7 +179,7 @@ function addMarker(thisData){
         createButtons(data.lat,data.lng, data)
         getDistinctValues(data.age)
         let fear = thisData.areyoufearfulofgoingoutsideduetotheriseofasianamericanhatecrimes
-        let thisPoint = turf.point([Number(data.lng),Number(data.lat)],{fear})
+        let thisPoint = turf.point([Number(data.lng),Number(data.lat)],{data})
         allPoints.push(thisPoint)
 
         // console.log('all the distinct fields')
