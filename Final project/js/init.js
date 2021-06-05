@@ -45,7 +45,7 @@ let circleOptions = {
     fillOpacity: 0.8
 }
 
-let boundaryLayer = "./data/la_county_zipcodes.geojson"
+let boundaryLayer = "./data/CA_boundaries.geojson"
 let flag;
 function countiesF() {
     // have the map show counties that are fearful
@@ -107,7 +107,7 @@ function getBoundary(layer){
                 {
                     // console.log(feature)
                     if (feature.properties.values.length > 0) {
-                        return {color: "#ff0000",stroke: false};
+                        return {color: "#ff0000"};
                     }
                     else{
                         return{opacity:0}
