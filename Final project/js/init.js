@@ -1,6 +1,6 @@
 // import stopwords from "./stopwords.js"
 
-const map = L.map('map').setView([34.0709, -118.444], 5);
+const map = L.map('map');
 
 let CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -9,6 +9,36 @@ let CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/li
 });
 
 CartoDB_PositronNoLabels.addTo(map)
+
+let Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16
+});
+
+Esri_WorldGrayCanvas.addTo(map)
+
+
+
+var textLatLng = [40.5865, -122.3917];  
+var myTextLabel1 = L.marker(textLatLng, {
+    icon: L.divIcon({
+        className: 'text-labels',   // Set class for CSS styling
+        html: 'NorCal'
+    }),
+    zIndexOffset: 100     // Make appear above other map features
+});
+myTextLabel1.addTo(map);
+
+var textLatLng = [34.1083, -117.2898];  
+var myTextLabel2 = L.marker(textLatLng, {
+    icon: L.divIcon({
+        className: 'text-labels',   // Set class for CSS styling
+        html: 'SoCal'
+    }),
+    zIndexOffset: 100     // Make appear above other map features
+});
+myTextLabel2.addTo(map);
+
 // create a new global scoped variable called 'scroller'
 // you can think of this like the "map" with leaflet (i.e. const map = L.map('map'))
 let scroller = scrollama();
@@ -69,29 +99,110 @@ let boundary;
 let ptsWithin;
 let collected;
 let allPoints = [];
+
+let headers = {
+    choice1: "Elderly Woman",
+    choice2: "Woman",
+    choice3: "Asian American Pacific Islander"
+}
+
+ 
+let onPolyClick = function(event,header){
+    
+    //callFancyboxIframe('flrs.html')
+    console.log(event.layer.feature.properties.values)
+    let regionFeatures = event.layer.feature.properties.values
+    const placeHolder = document.getElementById('contents')
+    placeHolder.innerHTML = ""
+    let thisLayer = L.featureGroup();
+    
+    regionFeatures.forEach(data=>{ 
+        let feature = subset_region(data,headers);
+        thisLayer.addLayer(L.circleMarker([feature.lat,feature.lng],circleOptions))
+      })
+    console.log('theseFeatures')
+    console.log(thisLayer)
+    map.fitBounds(thisLayer.getBounds())
+    // var label = event.target.options.label;
+    // var content = event.target.options.popup;
+    // var otherStuff = event.target.options.otherStuff;
+    // alert("Clicked on polygon with label:" +label +" and content:" +content +". Also otherStuff set to:" +otherStuff);
+};
+
+function subset_region(subData,cardHeaders) {
+    const targetDiv = document.createElement("div"); // adds a new button
+    console.log(('subData'))
+    console.log((subData))
+    // let cardContent = subData
+    let header;
+    if (subData.gender != "Woman" && subData.age == "under 59") {
+        header = cardHeaders.choice3
+    }
+    else if (subData.gender == "Woman" && subData.age == "under 59") {
+        header = cardHeaders.choice2
+    }
+    else {
+        header = cardHeaders.choice1
+    }
+    let cardContent =  `<h2> ${header} </h2> <div class='story'> <p> Age: ${subData.age} </p> <p> Location: ${subData.city} </p> <p> Asian American/Pacific Islander: ${subData.iden} </p> <p> Gender identity: ${subData.gender} </p> <p>Fearful of going outside: ${subData.fear} </p>  Story: ${subData.story}</div>`
+    targetDiv.innerHTML = cardContent; // gives it the HTML content
+    targetDiv.setAttribute("class","story") // add the class called "step" to the button or div
+    // targetDiv.setAttribute("data-step",newDiv.id) // add a data-step for the button id to know which step we are on
+    // newDiv.setAttribute("lat",lat); // sets the latitude 
+    // newDiv.setAttribute("lng",lng); // sets the longitude
+    const placeHolder = document.getElementById('contents')
+    console.log("placholder"+placeHolder)
+    // placeHolder.innerHTML.replace(targetDiv)
+    placeHolder.innerHTML += cardContent;
+    console.log('targetDiv')
+    console.log(targetDiv)
+    return subData
+}
+
+function getStyles(data){
+    let myStyle = {
+        "color": "#ffd369",
+        "weight": 1,
+        "opacity": 50,
+        "stroke": .5
+    };
+    return myStyle
+}
+
 function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
     console.log(feature.properties)
     if (feature.properties.values) {
-        let count = feature.properties.values.length
-        console.log(count)
+        console.log(feature.properties.values)
+        let count = feature.properties.values
+        //call function to parse out data based on values inside the boundary
+        // feature.properties.values.forEach(data=>{ 
+        //     let runningCount = subset_region(data,headers);
+        //   })
+        // subset_region(feature)
+
+        // console.log(count)
         let text = count.toString()
-        layer.bindPopup(text);
+        // layer.bindPopup(text);
+        console.log('layer')
+        console.log(layer)
+        console.log(layer.feature.properties.values)
+        // layer.on({
+        //     // mouseover: highlightFeature,
+        //     // mouseout: resetHighlight,
+        //     // click: subset_region(layer,headers)
+        //     click: layer.bindPopup(layer.feature.properties.values);
+        //     // layer.bindPopup(`<strong>State: </strong>`+clickName+`<br>`+`<strong>Number of incidents reported: </strong>`+reportSum)
+        // });
     }
 }
-function getStyles(data){
-    console.log(data)
-    let myStyle = {
-        "color": "#ff7800",
-        "weight": 1,
-        "opacity": .0,
-        "stroke": .5
-    };
-    if (data.properties.values.length > 0){
-        myStyle.opacity = 0
-    }
-    return myStyle
+
+// Next steps --> zoom on click (to bay (or where most are responding))
+let regionColors = {
+    'SoCal': "orangered", 
+    'NorCal': "green"
 }
+
 function getBoundary(layer){
     fetch(layer)
     .then(response => {
@@ -99,25 +210,67 @@ function getBoundary(layer){
         })
     .then(data =>{
                 boundary = data
-                collected = turf.collect(boundary, thePoints, 'fear', 'values');
+                console.log('data:')
+                console.log(data)
+                collected = turf.collect(boundary, thePoints, 'surveyData', 'values');
                 
                 // collected = turf.buffer(thePoints, 50,{units:'miles'});
                 console.log(collected.features)
-                L.geoJson(collected,{onEachFeature: onEachFeature,style:function(feature)
+                let boundaryJson = L.geoJson(collected,{onEachFeature: onEachFeature,style:function(feature)
                 {
-                    // console.log(feature)
-                    if (feature.properties.values.length > 0) {
-                        return {color: "#ff0000"};
-                    }
-                    else{
-                        return{opacity:0}
-                    }
+                    console.log('feature.properties.values.Region')
+                    // console.log(feature.properties.Region)
+                    let thisRegion = feature.properties.Region
+                    return {color: regionColors[thisRegion]}    
+                    // if (thisRegion == 'SoCal') {
+                    //     return {color: "aqua"};
+                    // }
+                    // else{
+                    //     return{color: "green"}
+                    // }
                 }
-                    }).addTo(map)
+                
+                    }).on('click',onPolyClick).addTo(map)    
+                    map.fitBounds(boundaryJson.getBounds()); 
         }
     )   
 }
 
+function getBoundary2(layer){
+    fetch(layer)
+    .then(response => {
+        return response.json();
+        })
+    .then(data =>{
+                boundary = data
+                console.log('data:')
+                console.log(data)
+                collected = turf.collect(boundary, thePoints, 'surveyData', 'values');
+                
+                // collected = turf.buffer(thePoints, 50,{units:'miles'});
+                console.log(collected.features)
+                let boundaryJson = L.geoJson(collected,{onEachFeature: onEachFeature,style:function(feature)
+                {
+                    console.log('feature.properties.values.Region')
+                    // console.log(feature.properties.Region)
+                    let thisRegion = feature.properties.Region
+                    return {color: regionColors[thisRegion]}    
+                    // if (thisRegion == 'SoCal') {
+                    //     return {color: "aqua"};
+                    // }
+                    // else{
+                    //     return{color: "green"}
+                    // }
+                }})
+        
+                map.fitBounds(boundaryJson.getBounds()); 
+        }
+    )   
+}
+
+// Step 1: Filter by Yes/No Fear
+// Step 2: in that region who said fear who said not fear
+// Optional Step 2: get stories to show up in div
 
 let myFieldArray = []
 
@@ -132,12 +285,13 @@ function getDistinctValues(targetField){
 }
 
 function recenter() {
-    map.flyTo([34.0709, -118.444], 5 ,{
-        pan: {
-            animate: false,
-            duration: 0.1
-        }
-    });
+    // map.flyTo([37.5, -119.1], 6 ,{
+    //     pan: {
+    //         animate: true,
+    //         duration: 0.1
+    //     }
+    // });
+    getBoundary2(boundaryLayer)
 }
 
 function addMarker(thisData){
@@ -162,7 +316,7 @@ function addMarker(thisData){
             theStory = "Story not provided."
         }
         // console.log(theStory)
-        let data = {
+        let surveyData = {
             ['zip']: thisData.zipcode,
             ['city']: thisData.whatcitydoyouorthepersonyouarerepresentingcurrentlylivein,
             ['age']: thisData.howoldareyouorthepersonyouarerepresenting,
@@ -176,34 +330,36 @@ function addMarker(thisData){
 
         }
         // console.log(data)
-        createButtons(data.lat,data.lng, data)
-        getDistinctValues(data.age)
+        // createButtons(surveyData.lat,surveyData.lng, surveyData)
+        getDistinctValues(surveyData.age)
         let fear = thisData.areyoufearfulofgoingoutsideduetotheriseofasianamericanhatecrimes
-        let thisPoint = turf.point([Number(data.lng),Number(data.lat)],{data})
+        let thisPoint = turf.point([Number(surveyData.lng),Number(surveyData.lat)],{surveyData})
+        // console.log('thisPoint')
+        // console.log(thisPoint.properties.data)
         allPoints.push(thisPoint)
 
         // console.log('all the distinct fields')
         // console.log(myFieldArray)
         colorArray = ['green','blue','red','purple']
-        circleOptions.fillColor = colorArray[myFieldArray.indexOf(data.age)]
+        circleOptions.fillColor = colorArray[myFieldArray.indexOf(surveyData.age)]
         // console.log("age")
         // console.log(data.age)
-        let popUp = `<h2>${data.city}</h2><h4> ${data.zip} </h4> `
-        if (data.age == "under 59"){         
-            under59.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
-            return data.timestamp
+        let popUp = `<h2>${surveyData.city}</h2><h4> ${surveyData.zip} </h4> `
+        if (surveyData.age == "under 59"){         
+            under59.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
+            return surveyData.timestamp
         }
-        else if (data.age == "60-64") {
-            sixtyfour.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
+        else if (surveyData.age == "60-64") {
+            sixtyfour.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
         }
-        else if (data.age == "65-69") {
-            sixtynine.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
+        else if (surveyData.age == "65-69") {
+            sixtynine.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
         }
         else {
-            overseventy.addLayer(L.circleMarker([data.lat,data.lng],circleOptions).bindPopup(popUp))
+            overseventy.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
         }
        
-        return data   
+        return surveyData   
 }
 let storyID = 1
 function createButtons(lat,lng,data){
@@ -299,7 +455,7 @@ function createButtons(lat,lng,data){
     //ToDo: The button1 ID is hard coded, you'd probably want to have a space just for the tagCloud or have a space per card for it
     // I was having issues getting a TagCloud per card though....
     // I'll let you try to see if you can implement the wordcloud per card!
-    TagCloud('#button1', cloudText)
+    // TagCloud('#button1', cloudText)
 
     newDiv.innerHTML += "<div class='tagCloud'></div>";
     storyID+=1;
@@ -333,7 +489,7 @@ function formatData(theData){
         mcg.addTo(map)
         // console.log(allLayers)
         allLayers.addTo(map)
-        map.fitBounds(allLayers.getBounds()); 
+        // map.fitBounds(allLayers.getBounds()); 
        
         //popup?
         if (lastVisited == null || lastVisited == 'false') {
@@ -421,4 +577,12 @@ function startModal(){
 }
 // setup resize event for scrollama incase someone wants to resize the page...
 window.addEventListener("resize", scroller.resize);
+
+// $(document).ready(function(){
+//     $('.your-class').slick({
+//         infinite: true,
+//         slidesToShow: 3,
+//         slidesToScroll: 3
+//     });
+//   });
 
