@@ -2,13 +2,13 @@
 
 const map = L.map('map');
 
-let CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	subdomains: 'abcd',
-	maxZoom: 19
-});
+// let CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+// 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+// 	subdomains: 'abcd',
+// 	maxZoom: 19
+// });
 
-CartoDB_PositronNoLabels.addTo(map)
+// CartoDB_PositronNoLabels.addTo(map)
 
 let Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
@@ -532,12 +532,13 @@ function scrollStepper(thisStep){
     // }
     //     );
 }
-let layers = {
 
-	'<i style="background: green; border-radius: 50%;"></i> Under 59 yrs old ': under59,
-	'<i style="background: red; border-radius: 50%;"></i> 60-64 yrs old': sixtyfour,
-    '<i style="background: purple; border-radius: 50%;"></i>65-69 yrs old': sixtynine,
-	'<i style="background: blue; border-radius: 50%;"></i> Over 70 yrs old': overseventy
+
+let layers = {
+	'<i style="background: green; border-radius: 50%;"></i> < 59 Years Old ': under59,
+	'<i style="background: red; border-radius: 50%;"></i> 60-64 Years Old': sixtyfour,
+    '<i style="background: purple; border-radius: 50%;"></i> 65-69 Years Old': sixtynine,
+	'<i style="background: blue; border-radius: 50%;"></i> 70+ Years Old': overseventy
 }
 
 L.control.layers(null,layers,{collapsed: false}).addTo(map)
