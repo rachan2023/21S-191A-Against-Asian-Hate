@@ -37,15 +37,79 @@
         <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
      
         <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
+        <style>
+            .button {
+              display: inline-block;
+              padding: 10px 24px;;
+              font-size: 20px;
+              cursor: pointer;
+              text-align: center;
+              text-decoration: none;
+              outline: none;
+              color: #fff;
+              background-color: #4CAF50;
+              border: none;
+              border-radius: 15px;
+              box-shadow: 0 9px #999;
+            }
+            
+            .button:hover {background-color: #3e8e41}
+            
+            .button:active {
+              background-color: #3e8e41;
+              box-shadow: 0 5px #666;
+              transform: translateY(4px);
+            }
+        </style>
     </head>
 
     <body>
+
         <!-- <header> <h2> Against Asian American Hate  </h2></header> -->
         <!-- <theheader><h2>Against Asian Hate</h2> <button id="myBtn"> Click Here to Share Your Story! </button>        <a href="https://github.com/rachan2023/21S-191A-Against-Asian-Hate/blob/main/README.md"><button>About The Project</button></a>
         </theheader> -->
         <div id="map">
             <div id="recenter">
-                <button id='recenter_btn' onclick="recenter()"> Recenter </button>
+                <button class="button" id='recenter_btn' onclick="recenter()"> Recenter Map</button>
+            </div>
+
+            <!-- // let layers = {
+                // 	'<i style="background: green; border-radius: 50%;"></i> < 59 Years Old ': under59,
+                // 	'<i style="background: red; border-radius: 50%;"></i> 60-64 Years Old': sixtyfour,
+                //     '<i style="background: purple; border-radius: 50%;"></i> 65-69 Years Old': sixtynine,
+                // 	'<i style="background: blue; border-radius: 50%;"></i> 70+ Years Old': overseventy
+                // } -->
+
+            <div id="legend">
+                <div> 
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="green" />
+                    </svg> 
+                    < 59 Years Old
+                </div>
+
+                <div> 
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="red" />
+                    </svg> 
+                    60-64 Years Old
+                </div>	 
+                
+                <div> 
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="purple" />
+                    </svg> 
+                    65-69 Years Old
+                </div>	
+
+                <div>
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="blue" />
+                    </svg> 
+                    > 70 Years Old 
+                </div>	
+
             </div>
         </div> 
         <div id="theHeader"><h2>Against Asian Hate</h2> <div>

@@ -49,8 +49,8 @@ header{
   height:100vh;
   /* width: 150vh; */
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(min-content, max-content));
   grid-area: mappanel;
   /* align-items: center; */
   justify-items: center; 
@@ -96,6 +96,7 @@ header{
  top: 0;
  width: 100%;
 }
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -132,11 +133,10 @@ header{
 }
 
 #recenter {
-  grid-column: 1/span2;
-  grid-row: 1/span2;
+  grid-column: 1/span1;
+  grid-row: 1;
   padding-top: 10px;
   z-index: 1000;
-
 }
 
 .about_content {
@@ -163,21 +163,31 @@ header{
 } 
 
 /*Legend specific*/
-.legend {
+/* .legend {
   padding: 6px 8px;
   font: 14px Arial, Helvetica, sans-serif;
   background: white;
   background: rgba(255, 255, 255, 0.8);
-  /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
-  /*border-radius: 5px;*/
   line-height: 24px;
   color: #555;
+} */
+
+#legend{
+  grid-column: 4;
+  grid-row: 1;
+  align-items: right;
+  justify-items: right;
+  z-index: 9999;
+  padding:9px;
+  display:none;
+  background: white;
 }
+
 i {
   width: 12px;
   height: 12px;
-  float: right;
-  margin: 8px 8px 0 0;
+  float: left;
+  margin: 5px 5px 0 0;
   opacity: 0.7;
 }
 
@@ -186,9 +196,8 @@ i.icon {
   background-color: rgba(255, 255, 255, 1);
 }
 
-.text-labels {
+/* .text-labels {
   font-size: 2em;
   font-weight: 700;
   color: black;
-  /* Use color, background, set margins for offset, etc */
-}
+} */

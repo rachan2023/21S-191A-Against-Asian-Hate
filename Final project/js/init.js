@@ -2,13 +2,13 @@
 
 const map = L.map('map');
 
-let CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-	subdomains: 'abcd',
-	maxZoom: 19
-});
+// let CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+// 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+// 	subdomains: 'abcd',
+// 	maxZoom: 19
+// });
 
-CartoDB_PositronNoLabels.addTo(map)
+// CartoDB_PositronNoLabels.addTo(map)
 
 let Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
@@ -19,25 +19,7 @@ Esri_WorldGrayCanvas.addTo(map)
 
 
 
-var textLatLng = [40.5865, -122.3917];  
-var myTextLabel1 = L.marker(textLatLng, {
-    icon: L.divIcon({
-        className: 'text-labels',   // Set class for CSS styling
-        html: 'NorCal'
-    }),
-    zIndexOffset: 100     // Make appear above other map features
-});
-myTextLabel1.addTo(map);
 
-var textLatLng = [34.1083, -117.2898];  
-var myTextLabel2 = L.marker(textLatLng, {
-    icon: L.divIcon({
-        className: 'text-labels',   // Set class for CSS styling
-        html: 'SoCal'
-    }),
-    zIndexOffset: 100     // Make appear above other map features
-});
-myTextLabel2.addTo(map);
 
 // create a new global scoped variable called 'scroller'
 // you can think of this like the "map" with leaflet (i.e. const map = L.map('map'))
@@ -76,7 +58,7 @@ let circleOptions = {
 }
 
 let boundaryLayer = "./data/CA_boundaries.geojson"
-let flag;
+
 function countiesF() {
     // have the map show counties that are fearful
 }
@@ -106,9 +88,42 @@ let headers = {
     choice3: "Asian American Pacific Islander"
 }
 
- 
+// let layers = {
+//     '<i style="background: green; border-radius: 50%;"></i> < 59 Years Old ': under59,
+//     '<i style="background: red; border-radius: 50%;"></i> 60-64 Years Old': sixtyfour,
+//     '<i style="background: purple; border-radius: 50%;"></i> 65-69 Years Old': sixtynine,
+//     '<i style="background: blue; border-radius: 50%;"></i> 70+ Years Old': overseventy
+// }
+
+let flag;
+
+function toggleLegend(flag){
+    let target = document.getElementById("legend")
+    if (!flag) {
+        target.style.display = "inline";
+        console.log('flag:')
+        console.log(flag)
+        flag = 1
+        return flag
+    }
+    if (flag) {
+        target.style.display = "none";
+        console.log('flag:')
+        console.log(flag)
+        // target.setAttribute("style", "display: none")
+        flag = 0
+        return flag
+    }
+}
 let onPolyClick = function(event,header){
+    console.log('click!')
+    toggleLegend(flag)
     
+    // if (!map.hasLayer(layers)) {
+    //     L.control.layers(null,layers,{collapsed: false}).addTo(map)
+    // }
+    
+
     //callFancyboxIframe('flrs.html')
     console.log(event.layer.feature.properties.values)
     let regionFeatures = event.layer.feature.properties.values
@@ -203,6 +218,7 @@ let regionColors = {
     'NorCal': "green"
 }
 
+
 function getBoundary(layer){
     fetch(layer)
     .then(response => {
@@ -291,8 +307,39 @@ function recenter() {
     //         duration: 0.1
     //     }
     // });
+    flag = 1
+    toggleLegend(flag)
+    flag = 0
+    
     getBoundary2(boundaryLayer)
 }
+
+
+// function addImage(lat, lng, age, gender){
+//     // switch(title){
+//     //     case 'Los Angeles, CA': img = './pictures/UCLA.jpg';
+//     //         break;
+//     //     case 'West Lafayette, IN': img = './pictures/Purdue.jpg';
+//     //         break;
+//     //     case 'Houston, TX': img = './pictures/Houston.jpg';
+//     //         break;
+//     // }
+
+//     if(age == "under 59" && gender == "Woman") {
+//         img = './pictures/woman.png'
+//     }
+
+//     else if (age != "under 59" && gender == "Woman") {
+//         img = './pictures/elderly_woman.jpg'
+//     }
+
+//     else {
+//         img = './pictures/man.png'
+//     }
+
+//     L.popup().setLatLng([lat, lng]).setContent('<img src=' + img + ' width=105 height=105/><p>').openOn(map);
+    
+// }
 
 function addMarker(thisData){
         // let story = data.ifpossiblepleaseelaborateaboutwhyyouarefearful.
@@ -344,21 +391,33 @@ function addMarker(thisData){
         circleOptions.fillColor = colorArray[myFieldArray.indexOf(surveyData.age)]
         // console.log("age")
         // console.log(data.age)
-        let popUp = `<h2>${surveyData.city}</h2><h4> ${surveyData.zip} </h4> `
+        let popUp = `<h2>${surveyData.gender}</h2>`
+        // addImage(surveyData.lat,surveyData.lng,surveyData.age,surveyData.gender)
+
+        var marker1 = L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp)
+         
+        marker1.on('mouseover', function (e) {
+            this.openPopup();
+        });
+
         if (surveyData.age == "under 59"){         
-            under59.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
+            under59.addLayer(marker1)
+            // addImage(surveyData.lat,surveyData.lng,surveyData.age,surveyData.gender)
             return surveyData.timestamp
         }
         else if (surveyData.age == "60-64") {
-            sixtyfour.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
+            sixtyfour.addLayer(marker1)
+            // addImage(surveyData.lat,surveyData.lng,surveyData.age,surveyData.gender)
         }
         else if (surveyData.age == "65-69") {
-            sixtynine.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
+            sixtynine.addLayer(marker1)
+            // addImage(surveyData.lat,surveyData.lng,surveyData.age,surveyData.gender)
         }
         else {
-            overseventy.addLayer(L.circleMarker([surveyData.lat,surveyData.lng],circleOptions).bindPopup(popUp))
+            overseventy.addLayer(marker1)
+            // addImage(surveyData.lat,surveyData.lng,surveyData.age,surveyData.gender)
         }
-       
+      
         return surveyData   
 }
 let storyID = 1
@@ -532,15 +591,16 @@ function scrollStepper(thisStep){
     // }
     //     );
 }
-let layers = {
 
-	'<i style="background: green; border-radius: 50%;"></i> Under 59 yrs old ': under59,
-	'<i style="background: red; border-radius: 50%;"></i> 60-64 yrs old': sixtyfour,
-    '<i style="background: purple; border-radius: 50%;"></i>65-69 yrs old': sixtynine,
-	'<i style="background: blue; border-radius: 50%;"></i> Over 70 yrs old': overseventy
-}
 
-L.control.layers(null,layers,{collapsed: false}).addTo(map)
+// let layers = {
+// 	'<i style="background: green; border-radius: 50%;"></i> < 59 Years Old ': under59,
+// 	'<i style="background: red; border-radius: 50%;"></i> 60-64 Years Old': sixtyfour,
+//     '<i style="background: purple; border-radius: 50%;"></i> 65-69 Years Old': sixtynine,
+// 	'<i style="background: blue; border-radius: 50%;"></i> 70+ Years Old': overseventy
+// }
+
+// L.control.layers(null,layers,{collapsed: false}).addTo(map)
 
 
 
@@ -586,3 +646,24 @@ window.addEventListener("resize", scroller.resize);
 //     });
 //   });
 
+// var textLatLng = [40.5865, -122.3917];  
+// var myTextLabel1 = L.marker(textLatLng, {
+//     icon: L.divIcon({
+//         className: 'text-labels',   // Set class for CSS styling
+//         html: 'NorCal'
+//     }),
+//     zIndexOffset: 100,
+//     clickable: false     // Make appear above other map features
+// });
+// myTextLabel1.addTo(map);
+
+// var textLatLng = [34.1083, -117.2898];  
+// var myTextLabel2 = L.marker(textLatLng, {
+//     icon: L.divIcon({
+//         className: 'text-labels',   // Set class for CSS styling
+//         html: 'SoCal'
+//     }),
+//     zIndexOffset: 100,
+//     clickable: false     // Make appear above other map features
+// });
+// myTextLabel2.addTo(map);
