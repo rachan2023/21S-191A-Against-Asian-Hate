@@ -79,7 +79,9 @@ header{
   overflow: hidden;
   /* 16:9 aspect ratio */
   padding-top: 0%;
+  width: 1250px;
   position: relative;
+  height: 700px;
 }
 
 #go_back {
@@ -87,7 +89,12 @@ header{
   top: 10px;
   right: 50px;
 }
+#BtnSurvey {
+  position: absolute;
+  top: 10px;
+  right: 275px;
 
+}
 #survey iframe {
  border: 0;
  height: 100%;
