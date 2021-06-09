@@ -46,7 +46,7 @@ header{
 }
 
 #map{
-  height: 65vh;
+  height: 40vh;
   /* width: 150vh; */
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -63,7 +63,7 @@ header{
     grid-template-columns: repeat(2, 1fr); */
     grid-area: footer;
     display:grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 2fr);
     /* grid-auto-rows: 100px; */
     /* overflow-y:scroll; adds a vertical scroll-bar to this div */
     grid-auto-rows: minmax(min-content,max-content);    
