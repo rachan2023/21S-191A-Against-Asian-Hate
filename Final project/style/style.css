@@ -32,7 +32,7 @@ body{
   overflow: hidden;    /* hides any overflow so our page doesn't extend beyond the window height*/
   height: 100vh; /* this makes our page cover the whole browser window*/
   width: 99vw;
-  background-color:burlywood; 
+  /* background-color:burlywood;  */
 }
 
 header{
