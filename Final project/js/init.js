@@ -1,6 +1,9 @@
 // import stopwords from "./stopwords.js"
+// import 'leaflet-swoopy';
 
 const map = L.map('map');
+ 
+// create leaflet map ...
 
 // let CartoDB_PositronNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
 // 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -214,7 +217,7 @@ function onEachFeature(feature, layer) {
 
 // Next steps --> zoom on click (to bay (or where most are responding))
 let regionColors = {
-    'SoCal': "orangered", 
+    'SoCal': "blue", 
     'NorCal': "green"
 }
 
@@ -667,3 +670,39 @@ window.addEventListener("resize", scroller.resize);
 //     clickable: false     // Make appear above other map features
 // });
 // myTextLabel2.addTo(map);
+
+// const swoopy = L.swoopyArrow([40.1794, -118.4735], [38.5816,-121.4944], {
+//     label: 'NorCal',
+//     weight: 2,
+//     labelFontSize: 16,
+//     iconAnchor: [20, 10],
+//   }).addTo(map);
+
+  
+new L.SwoopyArrow([37.718590, -125.311178], [38.891033,-121.529358], {
+    label: '(NorCal)',
+    labelFontSize: 20,
+    labelClassName: 'swoopy-arrow',
+    arrowFilled: true,
+    opacity: 1,
+    minZoom: 2,
+    maxZoom: 10,
+    factor: .6,
+    iconAnchor: [75, 5],
+    iconSize: [85, 16],
+    weight: 2
+  }).addTo(map);
+
+  new L.SwoopyArrow([32.953368, -121.492700], [34.125448,-117.227158], {
+    label: '(SoCal)',
+    labelFontSize: 20,
+    labelClassName: 'swoopy-arrow',
+    arrowFilled: true,
+    opacity: 1,
+    minZoom: 2,
+    maxZoom: 10,
+    factor: .6,
+    iconAnchor: [75, 5],
+    iconSize: [85, 16],
+    weight: 2
+  }).addTo(map);
