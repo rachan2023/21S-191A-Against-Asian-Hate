@@ -20,6 +20,7 @@ Who is being empowered?
 ## Technologies
 Project is created with:
 * Leaflet maps
+* Leaflet pop-ups
 * Leaflet marker cluster plugins
 * QGIS for mapping layers
 * Turf.js
@@ -34,7 +35,17 @@ Project is created with:
 * Other people can use these tools to create their own website for social change. For example, the same method for data colloection can be used as well as the maps, which are open source, to help give a platform for those that are underrepresented to tell their stories. 
 
 ## Features 
-* INCLUDE SCREENSHOT!!!
+INCLUDE SCREENSHOT OF WEBSITE!!!!!!!!!!
+* Cards that contain respondents' stories (Ex: age, gender, location, and the reasons why they are/are not fearful in response to the rise in Asian hate crimes in California)
+* Map that shows which parts of California that respondents are fearful
+* Fearful-odometer visualize the amount of people that are fearful/not fearful in NorCal and SoCal.
+*  A legend that shows that age demographics of respondents on the map
+* Pop-ups that show the location and zip of the respondents
+* Translation button that enables people to use the language that they would like to use to interact with the website 
+* An html page containing the survey to allow people to share their story
+* Filtering system that enables people to see stories based on age group, location, and fearfulness 
+* Scrollama that directs people on the map where that story was shared 
+
 
 
 
