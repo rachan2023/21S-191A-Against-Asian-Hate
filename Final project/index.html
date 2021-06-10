@@ -34,7 +34,52 @@
         <!-- <header> <h2> Against Asian American Hate  </h2></header> -->
         <!-- <theheader><h2>Against Asian Hate</h2> <button id="myBtn"> Click Here to Share Your Story! </button>        <a href="https://github.com/rachan2023/21S-191A-Against-Asian-Hate/blob/main/README.md"><button>About The Project</button></a>
         </theheader> -->
-        <div id="map"></div> 
+
+
+
+        <div id="map">
+            <div id="recenter">
+                <button class="button" id='recenter_btn' onclick="recenter()"> Recenter Map</button>
+            </div>
+
+            <!-- // let layers = {
+                // 	'<i style="background: green; border-radius: 50%;"></i> < 59 Years Old ': under59,
+                // 	'<i style="background: red; border-radius: 50%;"></i> 60-64 Years Old': sixtyfour,
+                //     '<i style="background: purple; border-radius: 50%;"></i> 65-69 Years Old': sixtynine,
+                // 	'<i style="background: blue; border-radius: 50%;"></i> 70+ Years Old': overseventy
+                // } -->
+
+            <div id="legend">
+                <div> 
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="green" />
+                    </svg> 
+                    < 59 Years Old
+                </div>
+
+                <div> 
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="red" />
+                    </svg> 
+                    60-64 Years Old
+                </div>	 
+                
+                <div> 
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="purple" />
+                    </svg> 
+                    65-69 Years Old
+                </div>	
+
+                <div>
+                    <svg height="10" width="10">
+                        <circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="blue" />
+                    </svg> 
+                    > 70 Years Old 
+                </div>	
+
+            </div>
+        </div> 
         <div id="theHeader"><h2>Against Asian Hate</h2> <div>
             <button id="myBtn" onclick='startModal()'> Click Here to Share Your Story! </button> 
         </div>   
@@ -50,7 +95,11 @@
         <!-- this is the iframe for our survey -->
             <!-- <iframe width="640px" height= "480px" src= "https://forms.office.com/Pages/ResponsePage.aspx?id=oCI8t5lRfEaZh-gKKc_PzzQmZK6zAABOhTEbC6ytzpBUQ1BQQlJVVk9STDFOV1lRT0JETEhOSkRHWi4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
         </div> -->
-        <div id = "contents"></div>
+
+
+        <script src="js/stopwords.js"></script>
+        <script src="https://unpkg.com/leaflet-swoopy"></script>
+
         <script src="js/init.js"></script>
         
          <!-- Trigger/Open The Modal -->

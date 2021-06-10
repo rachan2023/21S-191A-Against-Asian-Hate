@@ -1,14 +1,39 @@
+@media screen and (min-width: 500px) {
+  #map {
+    grid-column: 2;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  body{
+    display: grid;
+    grid-template-columns: 1fr; 
+    grid-auto-rows: minmax(5px, auto);
+    /* grid-template-rows: .2fr .4fr .4fr; */
+    grid-template-areas: "header" "mappanel" "sidebar";
+    /* grid-template-areas: ". header header" "contentspanel mappanel sidepane" ; */
+    overflow: hidden;    /* hides any overflow so our page doesn't extend beyond the window height*/
+    height: 100vh; /* this makes our page cover the whole browser window*/
+    width: 99vw;
+    background-color:burlywood; 
+  }
+
+}
+
+
+
 body{
   display: grid;
   grid-template-columns: 1fr 1fr; 
   /* grid-auto-rows: minmax(5px, auto); */
   grid-template-rows: .2fr .6fr ;
+  /* grid-template-areas: "header header" "mappanel sidebar" "footer footer"; */
   grid-template-areas: "header header" "mappanel sidebar";
   /* grid-template-areas: ". header header" "contentspanel mappanel sidepane" ; */
   overflow: hidden;    /* hides any overflow so our page doesn't extend beyond the window height*/
   height: 100vh; /* this makes our page cover the whole browser window*/
   width: 99vw;
-  background-color:burlywood; 
+  /* background-color:burlywood;  */
 }
 
 header{
@@ -22,9 +47,14 @@ header{
 }
 
 #map{
-  height:100vh;
+  height: 70vh;
   /* width: 150vh; */
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(min-content, max-content));
   grid-area: mappanel;
+  /* align-items: center; */
+  justify-items: center; 
 } 
 
 #contents{
@@ -34,11 +64,12 @@ header{
     grid-template-columns: repeat(2, 1fr); */
     grid-area: sidebar;
     display:grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     /* grid-auto-rows: 100px; */
     /* overflow-y:scroll; adds a vertical scroll-bar to this div */
     grid-auto-rows: minmax(min-content,max-content);    
     overflow-y: scroll;
+    padding: 20px;
 }
 
 .card{
@@ -50,12 +81,9 @@ header{
   overflow: hidden;
   /* 16:9 aspect ratio */
   padding-top: 0%;
+  width: 1250px;
   position: relative;
-}
-
-.card_under59 {
-  background-color: orange;
-  padding: 20px;
+  height: 700px;
 }
 
 #go_back {
@@ -63,7 +91,12 @@ header{
   top: 10px;
   right: 50px;
 }
+#BtnSurvey {
+  position: absolute;
+  top: 10px;
+  right: 275px;
 
+}
 #survey iframe {
  border: 0;
  height: 100%;
@@ -72,6 +105,7 @@ header{
  top: 0;
  width: 100%;
 }
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -108,14 +142,18 @@ header{
 }
 
 #recenter {
-  position: absolute;
-  top:10px;
-  right:600px;
+  grid-column: 1/span1;
+  grid-row: 1;
+  padding-top: 10px;
+  z-index: 1000;
 }
 
 .about_content {
   position: fixed;
   top: 60px;
+  /* text-align: center; */
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 /* The Close Button */
@@ -134,21 +172,31 @@ header{
 } 
 
 /*Legend specific*/
-.legend {
+/* .legend {
   padding: 6px 8px;
   font: 14px Arial, Helvetica, sans-serif;
   background: white;
   background: rgba(255, 255, 255, 0.8);
-  /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
-  /*border-radius: 5px;*/
   line-height: 24px;
   color: #555;
+} */
+
+#legend{
+  grid-column: 4;
+  grid-row: 1;
+  align-items: right;
+  justify-items: right;
+  z-index: 9999;
+  padding:9px;
+  display:none;
+  background: white;
 }
+
 i {
   width: 12px;
   height: 12px;
-  float: right;
-  margin: 8px 8px 0 0;
+  float: left;
+  margin: 5px 5px 0 0;
   opacity: 0.7;
 }
 
@@ -156,3 +204,10 @@ i.icon {
   background-size: 12px;
   background-color: rgba(255, 255, 255, 1);
 }
+
+/* .text-labels {
+  font-size: 2em;
+  font-weight: 700;
+  color: black;
+} */
+
