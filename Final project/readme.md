@@ -30,6 +30,9 @@ Project is created with:
 * Leaflet legend 
 * Bubble button (provided by w3schools)
 * Google translation button 
+*Swoopey
+* Modal (from w3schools)
+
 
 ## Repurposing Technology
 * Other people can use these tools to create their own website for social change. For example, the same method for data colloection can be used as well as the maps, which are open source, to help give a platform for those that are underrepresented to tell their stories. 
